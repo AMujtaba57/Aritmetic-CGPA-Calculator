@@ -1,0 +1,898 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Online Calculator</title>
+		<link rel="stylesheet" href="bootstrap-4.2.1/css/bootstrap.min.css">
+		<style type="text/css">
+			input {font-size:20px;}
+			.header {background-color:blueviolet;padding:15px;padding-bottom:5px;}
+			.logo > p {color:white;font-size:25px;font-weight:bold;}
+			.nav-link {color:white !important;}
+			#arithmetic > table {margin:0px auto;margin-top:50px;}
+			#gpa-cgpa > .container {padding-top:15px;}
+			
+			.textview{
+			  	font-size:30px;
+			  	height:60px;
+			  	margin-bottom:20px;
+			}
+
+			.equalButton {
+				cursor: pointer;
+				display: inline-block;
+				margin: 2px;
+				width: 142px;
+				height:125px;
+				outline: none;
+				font-size: 20px;
+				font-weight: bold;
+				border-radius: 10px;
+
+			}
+
+			.button {
+				cursor: pointer;
+				display: inline-block;
+				margin: 2px;
+				width: 142px;
+				height: 60px;
+				font-size: 20px;
+				font-weight: bold;
+				border-radius: 10px;
+				outline: none;
+
+			}
+
+			.button:active, .allclearButton:active,.equalButton:active{
+				background-color: #3e8e41;
+				box-shadow: 0 3px #666;
+				transform: translateY(4px);
+			  }
+
+
+
+			.button:hover,.equalButton:hover {
+				background-color: #FFBA75;
+				box-shadow: 0px 0px 2px #FFBA75, inset 0px -20px 1px #FF8000;
+				border-top: 2px solid #FFF;
+				border-right: 2px solid #FFF;
+				border-bottom: 2px solid #AE5700;
+				border-left: 2px solid #AE5700;
+			}
+
+			.allclearButton {
+			  border-radius: 10px;
+				color: #FFF;
+				margin: 2px;
+				width: 142px;
+				height: 60px;
+				text-shadow: -1px -1px 0px #44006F;
+				background-color: #D20000;
+				border-top: 2px solid #FF8484;
+				border-right: 2px solid #FF8484;
+				border-bottom: 2px solid #800000;
+				border-left: 2px solid #800000;
+				box-shadow: 0px 0px 2px #030303;
+				outline: none;
+			}
+			
+			.gpa-tabs > li > a {color:blueviolet !important; font-weight:bold !important;}
+			#cgpa .row {margin-top:15px;}
+			#conversion ul > li > a {color:blueviolet !important; font-weight:bold !important;}
+			footer {background-color:blueviolet;}
+			footer > p {text-align:center;padding:10px;color:white;font-weight:bold;font-size:20px;margin-top:40px;margin-bottom:0px !important;}
+			
+      
+			@media screen and (max-width:500px) {
+				.nav > .nav-item {
+					width:100%;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="header container-fluid">
+			<div class="container">
+				<div class="row">
+					<div class="logo col-md-3"><p>Online Calculator</p></div>
+					<nav class="col-md-9">
+						<ul class="nav nav-pills">
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" href="#arithmetic">Arithmetic Operations</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#gpa-cgpa">GPA/CGPA</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#gcd">GCD/LCM</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#conversion">Conversion</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+		
+		<main>
+			<div class="tab-content">
+			  	<div class="tab-pane fade active show" id="arithmetic">
+					 <table>
+						 <tr>
+							 <td colspan="4">
+								<form name="form">
+									<input class="textview form-control" name="textview" >
+								</form>
+							 </td>
+						 </tr>
+						<tr>
+								<td><input class="allclearButton" type="button" value="AC" onclick="clean()"></td>
+								<td><input class="button" type="button" value="C" onclick="back()"></td>
+								<td><input class="button" type="button" value="/" onclick="insert('/')"></td>
+								<td><input class="button" type="button" value="x" onclick="insert('*')"></td>
+						</tr>
+						<tr>
+								<td><input class="button" type="button" value="7" onclick="insert(7)"></td>
+								<td><input class="button" type="button" value="8" onclick="insert(8)"></td>
+								<td><input class="button" type="button" value="9" onclick="insert(9)"></td>
+								<td><input class="button" type="button" value="-" onclick="insert('-')"></td>
+						 </tr>
+						 <tr>
+								<td><input class="button"  type="button" value="4" onclick="insert(4)"></td>
+								<td><input class="button" type="button" value="5" onclick="insert(5)"></td>
+								<td><input class="button" type="button" value="6" onclick="insert(6)"></td>
+								<td><input class="button" type="button" value="+" onclick="insert('+')"></td>
+						</tr>
+						 <tr>
+								<td><input class="button" type="button" value="1" onclick="insert(1)"></td>
+								<td><input class="button" type="button" value="2" onclick="insert(2)"></td>
+								<td><input class="button" type="button" value="3" onclick="insert(3)"></td>
+								<td rowspan="5"><input class="equalButton" type="button" value="=" onclick="equals()"></td>
+					  </tr>
+						<tr>
+								<td><input class="button" type="button" value="%" onclick="insert('%')"></td>
+								<td><input class="button" type="button" value="0" onclick="insert(0)"></td>
+								<td><input class="button" type="button" value="." onclick="insert('.')"></td>
+
+						</tr>
+
+					</table>
+			  	</div>
+			  	<div class="tab-pane fade" id="gpa-cgpa">
+					<div class="container">
+						<ul class="nav nav-tabs gpa-tabs">
+							<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#gpa">Calculate GPA</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cgpa">Calculate CGPA</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane fade show active" id="gpa">
+								<h1 style="color:blueviolet;margin-top:15px;">Calculate GPA</h1>
+								
+								<form name="gpa_form">
+									<div class="row">
+										<div class="col-md-2">
+											<div><h4 style="color:blueviolet;">Grades</h4></div>
+											<div style="position:relative;top:3px;"><h4 style="color:blueviolet;">Range</h4></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">A</h4></div>
+											<div><input type="text" class="form-control text-center" name="a" onKeyUp="saveGradeA()"></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">A-</h4></div>
+											<div><input type="text" class="form-control text-center" name="a_m" onKeyUp="saveGradeAM()"></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">B+</h4></div>
+											<div><input type="text" class="form-control text-center" name="b_p" onKeyUp="saveGradeBP()"></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">B</h4></div>
+											<div><input type="text" class="form-control text-center" name="b" onKeyUp="saveGradeB()"></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">B-</h4></div>
+											<div><input type="text" class="form-control text-center" name="b_m" onKeyUp="saveGradeBM()"></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">C+</h4></div>
+											<div><input type="text" class="form-control text-center" name="c_p" onKeyUp="saveGradeCP()"></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">C</h4></div>
+											<div><input type="text" class="form-control text-center" name="c" onKeyUp="saveGradeC()"></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">C-</h4></div>
+											<div><input type="text" class="form-control text-center" name="c_m" onKeyUp="saveGradeCM()"></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">D+</h4></div>
+											<div><input type="text" class="form-control text-center" name="d_p" onKeyUp="saveGradeDP()"></div>
+										</div>
+										<div class="col-md-1">
+											<div><h4 class="text-center" style="width:100%">D</h4></div>
+											<div><input type="text" class="form-control text-center" name="d" onKeyUp="saveGradeD()"></div>
+										</div>
+									</div>
+									<div class="row" style="margin-top:20px;">
+										<div class="col-md-4"><h4 class="text-center;">Subject Name</h4></div>
+										<div class="col-md-2"><h4 class="text-center;">Credit Hours</h4></div>
+										<div class="col-md-2"><h4 class="text-center;">Marks</h4></div>
+										<div class="col-md-2"><h4 class="text-center;">Grades</h4></div>
+										<div class="col-md-2"><h4 class="text-center;">GPA</h4></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control" ></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_1" onKeyUp="saveCrHrs(1)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" onKeyUp="saveMarks(1)" name="marks_1"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_1" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_1" disabled></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_2" onKeyUp="saveCrHrs(2)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="marks_2" onKeyUp="saveMarks(2)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_2" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_2" disabled></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_3" onKeyUp="saveCrHrs(3)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="marks_3" onKeyUp="saveMarks(3)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_3" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_3" disabled></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_4" onKeyUp="saveCrHrs(4)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="marks_4" onKeyUp="saveMarks(4)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_4" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_4" disabled></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_5" onKeyUp="saveCrHrs(5)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="marks_5" onKeyUp="saveMarks(5)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_5" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_5" disabled></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_6" onKeyUp="saveCrHrs(6)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="marks_6" onKeyUp="saveMarks(6)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_6" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_6" disabled></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_7" onKeyUp="saveCrHrs(7)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="marks_7" onKeyUp="saveMarks(7)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_7" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_7" disabled></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_8" onKeyUp="saveCrHrs(8)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="marks_8" onKeyUp="saveMarks(8)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_8" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_8" disabled></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_9" onKeyUp="saveCrHrs(9)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="marks_9" onKeyUp="saveMarks(9)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_9" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_9" disabled></div>
+									</div>
+									<div class="row" style="margin-top:10px;">
+										<div class="col-md-4"><input type="text" class="form-control"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="cr_hrs_10" onKeyUp="saveCrHrs(10)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="marks_10" onKeyUp="saveMarks(10)"></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="grade_10" disabled></div>
+										<div class="col-md-2"><input type="text" class="form-control" name="gpa_10" disabled></div>
+									</div>
+									<div id="show-gpa" style="margin-top:20px;"></div>
+									<div class="row" style="margin-top:10px; margin-bottom:30px;">
+										<div class="col-md-4"></div>
+										<div class="col-md-2"></div>
+										<div class="col-md-2"></div>
+										<div class="col-md-2"><input type="reset" class="btn btn-outline-danger btn-block" value="Reset"></div>
+										<div class="col-md-2"><input type="button" class="btn btn-outline-success btn-block" value="Calculate" onclick="calculateGPA()"></div>
+									</div>
+								</form>
+							</div>
+							<div class="tab-pane fade" id="cgpa">
+								<h1 style="color:blueviolet;margin-top:15px;">Calculate CGPA</h1>
+								<div id="modal"></div>
+								<form name="cgpa_form">
+									<div class="row">
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 1</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control" name="sem_1"></div>
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 2</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control"  name="sem_2"></div>
+									</div>
+									<div class="row">
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 3</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control" name="sem_3"></div>
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 4</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control" name="sem_4"></div>
+									</div>
+									<div class="row">
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 5</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control" name="sem_5"></div>
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 6</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control" name="sem_6"></div>
+									</div>
+									<div class="row">
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 7</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control" name="sem_7"></div>
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 8</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control" name="sem_8"></div>
+									</div>
+									<div class="row">
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 9</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control" name="sem_9"></div>
+										<h4 class="col-md-3" style="color:blueviolet;">Semester 10</h4>
+										<div class="col-md-3"><input type="text" placeholder="GPA" class="form-control" name="sem_10"></div>
+									</div>
+									<div class="row">
+										<div class="col-md-3"></div>
+										<div class="col-md-3"></div>
+										<div class="col-md-3"><input type="reset" class="btn btn-outline-danger btn-block" value="Reset"></div>
+										<div class="col-md-3"><input type="button" class="btn btn-outline-success btn-block" value="Calculate CGPA" onClick="calculateCGPA()"></div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+			  	</div>
+			  	<div class="tab-pane fade" id="gcd">
+					<div id="Container" style="max-width:300px;margin:0px auto;padding:20px;">
+					  <p>
+					    <input id="a" type="text" value="" placeholder="Enter Number" class="form-control" style="text-align:center;" />
+					  </p>
+					  <p>
+					    <input id="b" type="text" value="" placeholder="Enter Number" class="form-control" style="text-align:center;" />
+					  </p>
+					  <p>
+					    <select id="c" onclick="GetSelectOption('c', 'gcd');" class="form-control"  style="text-align:center;">
+					      <option value="gcd" style="text-align:center;">gcd</option>
+					      <option value="lcm">lcm</option>
+					    </select>
+					  </p>
+					  <p id="result" style="text-align:center;"></p>
+					</div>
+			  	</div>
+			  	<div class="tab-pane fade" id="conversion">
+					<div class="container" style="padding-top:15px;">
+						<ul class="nav nav-tabs">
+							<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#binary-to-decimal">Decimal to Binary</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#decimal-to-binary">Binary to Decimal</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#length-convert">Length Conversions</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane fade show active" id="binary-to-decimal">
+								<h1 style="color:blueviolet;margin-top:15px;">Convert Decimal Number to Binary</h1>
+								<div style="max-width:500px;margin:0px auto;">
+									<form name="d_b_form">
+										<label><h3 style="color:blueviolet;margin-top:15px;">Decimal Number</h3></label>
+										<input type="text" name="d_b_convert" class="form-control form-control-lg" >
+										<div id="d_b_convert"></div>
+										<input type="button" class="btn btn-outline-success btn-lg btn-block" value="Convert" style="margin:15px 0px 25px 0px;" onClick="convertBinary()">
+									</form>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="decimal-to-binary">
+								<h1 style="color:blueviolet;margin-top:15px;">Convert Binary to Decimal</h1>
+								<div style="max-width:500px;margin:0px auto;">
+									<form name="b_d_form">
+										<label><h3 style="color:blueviolet;margin-top:15px;">Binary Number</h3></label>
+										<input type="text" name="b_d_convert" class="form-control form-control-lg" >
+										<div id="b_d_convert"></div>
+										<input type="button" class="btn btn-outline-success btn-lg btn-block" value="Convert" style="margin:15px 0px 25px 0px;" onClick="convertDecimal()">
+									</form>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="length-convert">
+								<h1 style="color:blueviolet;margin-top:15px;">Length Conversions</h1>
+								<div style="max-width:500px;margin:0px auto;">
+									<form name="l_c_form">
+										<label><h3 style="color:blueviolet;margin-top:15px;">Feet</h3></label>
+										<input type="text" name="feet" class="form-control" onKeyUp="convertLength(1)">
+										<label><h3 style="color:blueviolet;margin-top:15px;">Meters</h3></label>
+										<input type="text" name="meters" class="form-control" onKeyUp="convertLength(2)">
+										<label><h3 style="color:blueviolet;margin-top:15px;">Inches</h3></label>
+										<input type="text" name="inches" class="form-control" onKeyUp="convertLength(3)">
+										<label><h3 style="color:blueviolet;margin-top:15px;">CM</h3></label>
+										<input type="text" name="cm" class="form-control" onKeyUp="convertLength(4)">
+										<label><h3 style="color:blueviolet;margin-top:15px;">Yards</h3></label>
+										<input type="text" name="yards" class="form-control" onKeyUp="convertLength(5)">
+										<label><h3 style="color:blueviolet;margin-top:15px;">Kilometers</h3></label>
+										<input type="text" name="kms" class="form-control" onKeyUp="convertLength(6)">
+										<label><h3 style="color:blueviolet;margin-top:15px;">Miles</h3></label>
+										<input type="text" name="miles" class="form-control" onKeyUp="convertLength(7)" style="margin-bottom:25px;">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+			  	</div>
+			</div>
+		</main>
+		
+		<footer>
+			<p>Copyrights &copy; 2019 - All Rights Reserved by Ahmad Mujtaba (2017-CS-401) &amp; Ahmad Ali (2017-CS-439)</p>
+		</footer>
+		
+		<script type="text/javascript" src="other/jquery-3.3.1.slim.min.js"></script>
+		<script type="text/javascript" src="other/popper.min.js"></script>
+		<script type="text/javascript" src="bootstrap-4.2.1/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			//grade limit declarations
+			var a = ""; var a_m = ""; var b_p = ""; var b = ""; var b_m = ""; var c_p = ""; var c = ""; var c_m = ""; var d_p = ""; var d = ""; 
+			// credit hours declarations
+			var cr; var cr_1 = 0; var cr_2 = 0; var cr_3 = 0; var cr_4 = 0; var cr_5 = 0; var cr_6 = 0; var cr_7 = 0; var cr_8 = 0; var cr_9 = 0; var cr_10 = 0;
+			// marks declarations
+			var passMarks;var marks; var marks_1 = 0; var marks_2 = 0; var marks_3 = 0; var marks_4 = 0; var marks_5 = 0; var marks_6 = 0; var marks_7 = 0; var marks_8 = 0; var marks_9 = 0; var marks_10 = 0;
+			// gpa calculation declarations
+			var mGPA_1 = 0; var mGPA_2 = 0; var mGPA_3 = 0; var mGPA_4 = 0; var mGPA_5 = 0; var mGPA_6 = 0; var mGPA_7 = 0; var mGPA_8 = 0; var mGPA_9 = 0; var mGPA_10 = 0;
+			
+			// arithmetic calculations
+			function insert(num){
+				document.form.textview.value=document.form.textview.value+num;
+			  }
+
+			  function equals(){
+				var txt=document.form.textview.value;
+				if(txt)
+				document.form.textview.value=eval(txt);
+				else
+				  document.form.textview.value='ERROR'
+
+			  }
+
+			  function clean(){
+				document.form.textview.value="";
+			  }
+
+			  function back(){
+				var txt=document.form.textview.value;
+				document.form.textview.value=txt.substring(0,txt.length-1);
+			  }
+			
+			// cgpa calculator
+			function calculateCGPA() {
+				var sem = 0;
+				var sem_1 = document.cgpa_form.sem_1.value;
+				var sem_2 = document.cgpa_form.sem_2.value;
+				var sem_3 = document.cgpa_form.sem_3.value;
+				var sem_4 = document.cgpa_form.sem_4.value;
+				var sem_5 = document.cgpa_form.sem_5.value;
+				var sem_6 = document.cgpa_form.sem_6.value;
+				var sem_7 = document.cgpa_form.sem_7.value;
+				var sem_8 = document.cgpa_form.sem_8.value;
+				var sem_9 = document.cgpa_form.sem_9.value;
+				var sem_10 = document.cgpa_form.sem_10.value;
+				
+				if(sem_1 == "" && sem_2 == "" && sem_3 == "" && sem_4 == "" && sem_5 == "" && sem_6 == "" && sem_7 == "" && sem_8 == "" && sem_9 == "" && sem_10 == "") {
+					var modal = document.getElementById("modal");
+					var msg = document.createElement("p");
+					modal.appendChild(msg);
+					msg.innerHTML = "Enter GPA of atleast 1 Semester";
+					msg.setAttribute("class","alert alert-danger");
+					var close = document.createElement("a");
+					msg.appendChild(close);
+					close.setAttribute("class","close");
+					close.setAttribute("data-dismiss","alert");
+					close.innerHTML = "&times;";
+				} else {
+					if(sem_1 == "") { sem_1 = 0; } if(sem_1 != "") { sem++; }
+					if(sem_2 == "") { sem_2 = 0; } if(sem_2 != "") { sem++; }
+					if(sem_3 == "") { sem_3 = 0; } if(sem_3 != "") { sem++; }
+					if(sem_4 == "") { sem_4 = 0; } if(sem_4 != "") { sem++; }
+					if(sem_5 == "") { sem_5 = 0; } if(sem_5 != "") { sem++; }
+					if(sem_6 == "") { sem_6 = 0; } if(sem_6 != "") { sem++; }
+					if(sem_7 == "") { sem_7 = 0; } if(sem_7 != "") { sem++; }
+					if(sem_8 == "") { sem_8 = 0; } if(sem_8 != "") { sem++; }
+					if(sem_9 == "") { sem_9 = 0; } if(sem_9 != "") { sem++; }
+					if(sem_10 == "") { sem_10 = 0; } if(sem_10 != "") { sem++; }
+					var gpa_sum = parseFloat(sem_1) + parseFloat(sem_2) + parseFloat(sem_3) + parseFloat(sem_4) + parseFloat(sem_5) + parseFloat(sem_6) + parseFloat(sem_7) + parseFloat(sem_8) + parseFloat(sem_9) + parseFloat(sem_10);
+					var cgpa = parseFloat(gpa_sum) / parseFloat(sem);
+					var modal = document.getElementById("modal");
+					var msg = document.createElement("h3");
+					modal.appendChild(msg);
+					msg.innerHTML = "Your CGPA: " + cgpa;
+					msg.setAttribute("class","alert alert-success");
+					var close = document.createElement("a");
+					msg.appendChild(close);
+					close.setAttribute("class","close");
+					close.setAttribute("data-dismiss","alert");
+					close.innerHTML = "&times;";
+					
+				}
+			}
+			
+			function saveGradeA() { a = document.gpa_form.a.value; }
+			function saveGradeAM() { a_m = document.gpa_form.a_m.value; }
+			function saveGradeBP() { b_p = document.gpa_form.b_p.value; }
+			function saveGradeB() { b = document.gpa_form.b.value; }
+			function saveGradeBM() { b_m = document.gpa_form.b_m.value; }
+			function saveGradeCP() { c_p = document.gpa_form.c_p.value; }
+			function saveGradeC() { c = document.gpa_form.c.value; }
+			function saveGradeCM() { c_m = document.gpa_form.c_m.value; }
+			function saveGradeDP() { d_p = document.gpa_form.d_p.value; }
+			function saveGradeD() { d = document.gpa_form.d.value; }
+			
+			function saveCrHrs(cr) {
+				if(cr == 1) { cr_1 = document.gpa_form.cr_hrs_1.value; }
+				else if(cr == 2) { cr_2 = document.gpa_form.cr_hrs_2.value; }
+				else if(cr == 3) { cr_3 = document.gpa_form.cr_hrs_3.value; }
+				else if(cr == 4) { cr_4 = document.gpa_form.cr_hrs_4.value; }
+				else if(cr == 5) { cr_5 = document.gpa_form.cr_hrs_5.value; }
+				else if(cr == 6) { cr_6 = document.gpa_form.cr_hrs_6.value; }
+				else if(cr == 7) { cr_7 = document.gpa_form.cr_hrs_7.value; }
+				else if(cr == 8) { cr_8 = document.gpa_form.cr_hrs_8.value; }
+				else if(cr == 9) { cr_9 = document.gpa_form.cr_hrs_9.value; }
+				else if(cr == 10) { cr_10 = document.gpa_form.cr_hrs_10.value; }
+			}
+			
+			function saveMarks(marks) {
+				if(marks == 1) { marks_1 = document.gpa_form.marks_1.value; document.gpa_form.grade_1.value = setGrades(marks_1); document.gpa_form.gpa_1.value = parseFloat(cr_1) * setGPA(marks_1); }
+				else if(marks == 2) { marks_2 = document.gpa_form.marks_2.value; document.gpa_form.grade_2.value = setGrades(marks_2); document.gpa_form.gpa_2.value = parseFloat(cr_2) * setGPA(marks_2); }
+				else if(marks == 3) { marks_3 = document.gpa_form.marks_3.value; document.gpa_form.grade_3.value = setGrades(marks_3); document.gpa_form.gpa_3.value = parseFloat(cr_3) * setGPA(marks_3); }
+				else if(marks == 4) { marks_4 = document.gpa_form.marks_4.value; document.gpa_form.grade_4.value = setGrades(marks_4); document.gpa_form.gpa_4.value = parseFloat(cr_4) * setGPA(marks_4); }
+				else if(marks == 5) { marks_5 = document.gpa_form.marks_5.value; document.gpa_form.grade_5.value = setGrades(marks_5); document.gpa_form.gpa_5.value = parseFloat(cr_5) * setGPA(marks_5); }
+				else if(marks == 6) { marks_6 = document.gpa_form.marks_6.value; document.gpa_form.grade_6.value = setGrades(marks_6); document.gpa_form.gpa_6.value = parseFloat(cr_6) * setGPA(marks_6); }
+				else if(marks == 7) { marks_7 = document.gpa_form.marks_7.value; document.gpa_form.grade_7.value = setGrades(marks_7); document.gpa_form.gpa_7.value = parseFloat(cr_7) * setGPA(marks_7); }
+				else if(marks == 8) { marks_8 = document.gpa_form.marks_8.value; document.gpa_form.grade_8.value = setGrades(marks_8); document.gpa_form.gpa_8.value = parseFloat(cr_8) * setGPA(marks_8); }
+				else if(marks == 9) { marks_9 = document.gpa_form.marks_9.value; document.gpa_form.grade_9.value = setGrades(marks_9); document.gpa_form.gpa_9.value = parseFloat(cr_9) * setGPA(marks_9); }
+				else if(marks == 10) { marks_10 = document.gpa_form.marks_10.value; document.gpa_form.grade_10.value = setGrades(marks_10); document.gpa_form.gpa_10.value = parseFloat(cr_10) * setGPA(marks_10); }
+			}
+			
+			function setGrades(passMarks) {
+				var pM = parseFloat(passMarks);
+				var aGrade = parseFloat(a); var amGrade = parseFloat(a_m); var bpGrade = parseFloat(b_p); var bGrade = parseFloat(b); var bmGrade = parseFloat(b_m); var cpGrade = parseFloat(c_p); var cGrade = parseFloat(c); var cmGrade = parseFloat(c_m); var dpGrade = parseFloat(d_p); var dGrade = parseFloat(d);
+				if(pM >= aGrade) {return "A";}
+				else if(pM < aGrade && pM >= amGrade) {return "A-";}
+				else if(pM < amGrade && pM >= bpGrade) {return "B+";}
+				else if(pM < bpGrade && pM >= bGrade) {return "B";}
+				else if(pM < bGrade && pM >= bmGrade) {return "B-";}
+				else if(pM < bmGrade && pM >= cpGrade) {return "C+";}
+				else if(pM < cpGrade && pM >= cGrade) {return "C";}
+				else if(pM < cGrade && pM >= cmGrade) {return "C-";}
+				else if(pM < cmGrade && pM >= dpGrade) {return "D+";}
+				else if(pM < dpGrade && pM >= dGrade) {return "D";}
+				else if(pM < dGrade) {return "F";}
+			}
+			
+			function setGPA(passMarks) {
+				if(setGrades(passMarks) == "A") { return 4.0; }
+				else if(setGrades(passMarks) == "A-") { return 3.7; }
+				else if(setGrades(passMarks) == "B+") { return 3.3; }
+				else if(setGrades(passMarks) == "B") { return 3.0; }
+				else if(setGrades(passMarks) == "B-") { return 2.7; }
+				else if(setGrades(passMarks) == "C+") { return 2.3; }
+				else if(setGrades(passMarks) == "C") { return 2.0; }
+				else if(setGrades(passMarks) == "C-") { return 1.7; }
+				else if(setGrades(passMarks) == "D+") { return 1.3; }
+				else if(setGrades(passMarks) == "D") { return 1.0; }
+				else if(setGrades(passMarks) == "F") { return 0.0; }
+			}
+			
+			// gpa calculator
+			function calculateGPA() {
+				cr_1 = parseFloat(cr_1); cr_2 = parseFloat(cr_2); cr_3 = parseFloat(cr_3); cr_4 = parseFloat(cr_4); cr_5 = parseFloat(cr_5); cr_6 = parseFloat(cr_6); cr_7 = parseFloat(cr_7); cr_8 = parseFloat(cr_8); cr_9 = parseFloat(cr_9); cr_10 = parseFloat(cr_10);
+				
+				mGPA_1 = document.gpa_form.gpa_1.value; mGPA_2 = document.gpa_form.gpa_2.value;
+				mGPA_3 = document.gpa_form.gpa_3.value; mGPA_4 = document.gpa_form.gpa_4.value;
+				mGPA_5 = document.gpa_form.gpa_5.value; mGPA_6 = document.gpa_form.gpa_6.value;
+				mGPA_7 = document.gpa_form.gpa_7.value; mGPA_8 = document.gpa_form.gpa_8.value;
+				mGPA_9 = document.gpa_form.gpa_9.value; mGPA_10 = document.gpa_form.gpa_10.value;
+				
+				if(mGPA_1 == "") { mGPA_1 = 0; }
+				if(mGPA_2 == "") { mGPA_2 = 0; }
+				if(mGPA_3 == "") { mGPA_3 = 0; }
+				if(mGPA_4 == "") { mGPA_4 = 0; }
+				if(mGPA_5 == "") { mGPA_5 = 0; }
+				if(mGPA_6 == "") { mGPA_6 = 0; }
+				if(mGPA_7 == "") { mGPA_7 = 0; }
+				if(mGPA_8 == "") { mGPA_8 = 0; }
+				if(mGPA_9 == "") { mGPA_9 = 0; }
+				if(mGPA_10 == "") { mGPA_10 = 0; }
+				
+				var gpaSUM = parseFloat(mGPA_1) + parseFloat(mGPA_2) + parseFloat(mGPA_3) + parseFloat(mGPA_4) + parseFloat(mGPA_5) + parseFloat(mGPA_6) + parseFloat(mGPA_7) + parseFloat(mGPA_8) + parseFloat(mGPA_9) + parseFloat(mGPA_10);
+				var crSUM = cr_1 + cr_2 + cr_3 + cr_4 + cr_5 + cr_6 + cr_7 + cr_8 + cr_9 + cr_10;
+				var totalGPA = (gpaSUM / crSUM);
+				
+				var modal = document.getElementById("show-gpa");
+				var msg = document.createElement("h3");
+				modal.appendChild(msg);
+				msg.innerHTML = "Your GPA: " + totalGPA;
+				msg.setAttribute("class","alert alert-success");
+				var close = document.createElement("a");
+				msg.appendChild(close);
+				close.setAttribute("class","close");
+				close.setAttribute("data-dismiss","alert");
+				close.innerHTML = "&times;";
+			}
+			
+			// convert decimal to binary
+			function convertBinary() {
+				var binary = Array();
+				var binaryStr = "";
+				var decimal = document.d_b_form.d_b_convert.value;
+				var decimal_int = parseInt(decimal);
+				while(decimal_int >= 2) {
+					var remainder = decimal_int % 2;
+					binary.push(remainder);
+					decimal_int = (decimal_int-remainder)/2;
+				}
+				binary.push(decimal_int);
+				binary.reverse();
+				binaryStr = binary.join("");
+				
+				var modal = document.getElementById("d_b_convert");
+				var msg = document.createElement("h3");
+				modal.appendChild(msg);
+				msg.innerHTML = "Binary: " + binaryStr;
+				msg.setAttribute("class","alert alert-success");
+				msg.setAttribute("style","margin-top:15px");
+				var close = document.createElement("a");
+				msg.appendChild(close);
+				close.setAttribute("class","close");
+				close.setAttribute("data-dismiss","alert");
+				close.innerHTML = "&times;";
+			}
+			
+			// convert binary to decimal
+			function convertDecimal() {
+				var decimal = document.b_d_form.b_d_convert.value;
+				var binary = parseInt(decimal,2);
+				
+				var modal = document.getElementById("b_d_convert");
+				var msg = document.createElement("h3");
+				modal.appendChild(msg);
+				msg.innerHTML = "Decimal: " + binary;
+				msg.setAttribute("class","alert alert-success");
+				msg.setAttribute("style","margin-top:15px");
+				var close = document.createElement("a");
+				msg.appendChild(close);
+				close.setAttribute("class","close");
+				close.setAttribute("data-dismiss","alert");
+				close.innerHTML = "&times;";
+			}
+			// GCD & LCM
+			window.onresize = function(){resize();};
+
+			function gcd(a, b) {
+			  if (isNaN(a) || isNaN(b))
+			    return "Must only enter numbers!"
+
+			  a = Math.abs(a);
+			  b = Math.abs(b);
+			  var r = 1; // remainder
+
+			  while (r != 0) {
+			    if (a > b) {
+			      var t = a; // temp
+			      a = b;
+			      b = t;
+			    }
+			    if (a == 0)
+			      return "Error : Cannot divide by 0!"
+
+			    r = b % a;
+			    console.log("a : " + a + " | b : " + b + " | r : " + r); /* Add Show Work */
+			    b = a;
+			    a = (r != 0) ? r : a;
+			  }
+			  return a;
+			}
+
+			function lcm(a,b)
+			{
+			  var gcdResult = gcd(a,b);
+			 if(isNaN(gcdResult))
+			    return gcdResult;
+			  var lcmR = (a*b) / gcdResult;
+			  return lcmR;
+			}
+
+			function GetResult(a, b, result, type) {
+			  a = document.getElementById(a).value;
+			  b = document.getElementById(b).value;
+			  result = document.getElementById(result);
+			  var usePrecision = Notation('notation');
+			  
+			  //result.innerHTML = gcd(a,b);
+			  if(type == 'gcd')
+			    if(usePrecision)
+			      result.innerHTML = Precision(gcd(a,b)); // Add option with / or without precision
+			    else
+			      result.innerHTML = gcd(a,b);
+			  else
+			    if(usePrecision)
+			      result.innerHTML = Precision(lcm(a,b));
+			    else
+			    result.innerHTML =lcm(a,b);
+			}
+
+			function GetSelectOption(c, gcd)
+			{
+			    c = document.getElementById(c);
+			    gcd = document.getElementById(gcd);
+			    c = c.options[c.selectedIndex].value;
+			    gcd.value = c;
+
+			    gcd.addEventListener('click', function(){
+			      GetResult('a','b', 'result', c);
+			    });
+			}
+
+			function Precision(num) {
+			num = num.toString();
+			  if (!isNaN(parseInt(num)) && num.length >= 4) {
+			    if (num.indexOf('e') > -1)
+			     num =  ParseScientificNotatedNumber(num);
+			    return AddCommasToNumber(num);
+			  } else
+			    return num;
+			}
+
+			function ParseScientificNotatedNumber(num)
+			{
+			  var start = num.indexOf('.');
+			  var end = num.indexOf('e');
+			  var parsedNum = num.substring(0, start);
+			  var numsBetween = num.substring(start + 1, end);
+			  start = num.indexOf('+');
+			  var exp = num.substring(start + 1, num.length); // exponent, i.e. if e+32 then exp = 32 which is equivalent to # x 10^(32)
+			  exp = parseInt(exp) - numsBetween.length;
+			  parsedNum += numsBetween;
+			  for (var i = 0; i < parseInt(exp); i++) {
+			    parsedNum += '0';
+			  }
+			  
+			  return parsedNum;
+			}
+
+			function AddCommasToNumber(num) {
+			  num = num.toString();
+			  var newNum = []; // multidimensional array w/ an order of 2
+			  var numRev = (num.split("")).reverse(); // reverse number
+			  var length = num.toString().length;
+			  var modulo = 3;
+			  var splitNumBy = 3;
+			  for (var i = 0; i < length; i++) {
+			    if (i % modulo == 0 && i != 0) {
+			      var a = [];
+			      for (var j = 0; j < splitNumBy; j++)
+			        a.push(numRev[i - j]);
+			      newNum.push(a);
+			    }
+			  }
+			  for (var i = 1; i < newNum.length; i++) {
+			    newNum[i].push('|')
+			  }
+			   newNum = (((newNum.reverse()).join()).replace(/\,/g, '')).replace(/\|/g, ',');
+			  return newNum;
+			}
+
+			function Width(id)
+			{
+			  var e = document.getElementById(id);
+			  return e.offsetWidth;
+			}
+
+			function TextLength(id)
+			{
+			  var e = document.getElementById(id);
+			  return e.innerHTML.length;
+			}
+
+			var resize = function()
+			{
+			  var containerWidth = Width('Container');
+			  var resultWidth = Width('result');
+			  var resultLength = TextLength('result');
+			  var resultTotal = resultWidth + resultLength;
+			  var diff = Math.abs(resultTotal-containerWidth);
+			  var result = document.getElementById('result');
+			  console.log(100 - diff + '%');
+			  result.style.fontSize = Math.abs(100 - diff + (15)) + '%';
+			  
+			};
+
+			function Notation(radBtnName)
+			{
+			  var radio = document.getElementsByName(radBtnName);
+			  var defaultValue = 'decimal';
+			  var checkedValue = '';
+			  for(key in radio)
+			    if(radio[key].checked)
+			    checkedValue = radio[key].value;
+			  if(checkedValue == '')
+			    checkedValue = defaultValue;
+			  
+			  switch(checkedValue)
+			    {
+			      case 'decimal':
+			        return true;
+			        break;
+			      case 'scientific':
+			        return false;
+			        break;
+			      default:
+			        return true;
+			    }
+			}
+			
+			// Length Conversion
+			var a = 0;
+			function convertLength(a) {
+				if (parseInt(a) == 1) {
+					var feet = document.l_c_form.feet.value;
+					document.l_c_form.meters.value = (parseFloat(feet) / 3.2808);
+					document.l_c_form.inches.value = (parseFloat(feet) * 12);
+					document.l_c_form.cm.value = (parseFloat(feet) / 0.032808);
+					document.l_c_form.yards.value = (parseFloat(feet) * 0.33333);
+					document.l_c_form.kms.value = (parseFloat(feet) / 3280.8);
+					document.l_c_form.miles.value = (parseFloat(feet) * 0.00018939);
+				} else if (parseInt(a) == 2) {
+					var meters = document.l_c_form.meters.value;
+					document.l_c_form.feet.value = parseFloat(meters) * 3.2808;
+					document.l_c_form.inches.value = parseFloat(meters) * 39.370;
+					document.l_c_form.cm.value = parseFloat(meters) / 0.01;
+					document.l_c_form.yards.value = parseFloat(meters) * 1.0936;
+					document.l_c_form.kms.value = parseFloat(meters) / 1000;
+					document.l_c_form.miles.value = parseFloat(meters) * 0.00062137;
+				} else if (parseInt(a) == 3) {
+					var inches = document.l_c_form.inches.value;
+					document.l_c_form.feet.value = parseFloat(inches) * 0.083333;
+					document.l_c_form.meters.value = parseFloat(inches) / 39.370;
+					document.l_c_form.cm.value = parseFloat(inches) / 0.39370;
+					document.l_c_form.yards.value = parseFloat(inches) * 0.027778;
+					document.l_c_form.kms.value = parseFloat(inches) / 39370;
+					document.l_c_form.miles.value = parseFloat(inches) * 0.000015783;
+				} else if (parseInt(a) == 4) {
+					var cm = document.l_c_form.cm.value;
+					document.l_c_form.feet.value = parseFloat(cm) * 0.032808;
+					document.l_c_form.meters.value = parseFloat(cm) / 100;
+					document.l_c_form.inches.value = parseFloat(cm) * 0.39370;
+					document.l_c_form.yards.value = parseFloat(cm) * 0.010936;
+					document.l_c_form.kms.value = parseFloat(cm) / 100000;
+					document.l_c_form.miles.value = parseFloat(cm) * 0.0000062137;
+				} else if (parseInt(a) == 5) {
+					var yards = document.l_c_form.yards.value;
+					document.l_c_form.feet.value = parseFloat(yards) * 3;
+					document.l_c_form.meters.value = parseFloat(yards) / 1.0936;
+					document.l_c_form.inches.value = parseFloat(yards) * 36;
+					document.l_c_form.cm.value = parseFloat(yards) / 0.010936;
+					document.l_c_form.kms.value = parseFloat(yards) / 1093.6;
+					document.l_c_form.miles.value = parseFloat(yards) * 0.00056818;
+				} else if (parseInt(a) == 6) {
+					var kms = document.l_c_form.kms.value;
+					document.l_c_form.feet.value = parseFloat(kms) * 3280.8;
+					document.l_c_form.meters.value = parseFloat(kms) * 1000;
+					document.l_c_form.inches.value = parseFloat(kms) * 39370;
+					document.l_c_form.cm.value = parseFloat(kms) * 100000;
+					document.l_c_form.yards.value = parseFloat(kms) * 1093.6;
+					document.l_c_form.miles.value = parseFloat(kms) * 0.62137;
+				} else if (parseInt(a) == 7) {
+					var miles = document.l_c_form.miles.value;
+					document.l_c_form.feet.value = parseFloat(miles) * 5280;
+					document.l_c_form.meters.value = parseFloat(miles) / 0.00062137;
+					document.l_c_form.inches.value = parseFloat(miles) * 63360;
+					document.l_c_form.cm.value = parseFloat(miles) / 0.0000062137;
+					document.l_c_form.yards.value = parseFloat(miles) * 1760;
+					document.l_c_form.kms.value = parseFloat(miles) / 0.62137;
+				}
+			}
+		</script>
+	</body>
+</html>
